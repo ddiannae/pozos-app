@@ -130,9 +130,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LEAFLET_CONFIG = {
-    'SPATIAL_EXTENT': (-120, 32, -90, 20),
+    'SPATIAL_EXTENT': (-115, 33, -87, 20),
     'DEFAULT_CENTER': (24.4979901, -103.4528147),
-    'DEFAULT_ZOOM': 6,
+    'DEFAULT_ZOOM': 4,
     'MIN_ZOOM': 4,
     'MAX_ZOOM': 18,
     'DEFAULT_PRECISION': 6,

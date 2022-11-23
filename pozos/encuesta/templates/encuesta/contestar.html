@@ -14,11 +14,13 @@
                     'VERDE': '#008000',
                     'AMARILLO': '#ffd700'
                 }
-
+        
         window.addEventListener("map:init", function (event) {
             const map = event.detail.map;
-            const popup = L.popup();
-            // Download GeoJSON data with Ajax
+            const mk = L.marker();
+            const latField = document.getElementById("id_lat");
+            const lonField = document.getElementById("id_lon");
+            
             fetch(dataurl)
                 .then(function(resp) {
                     return resp.json();
@@ -36,21 +38,45 @@
 
 
             function onMapClick(e) {
-                console.log(e)
-                popup
-                    .setLatLng(e.latlng)
-                    .setContent("You clicked the map at " + e.latlng.toString())
-                    .openOn(map);
+                mk.setLatLng(e.latlng).addTo(map);
+                latField.value = e.latlng.lat;
+                lonField.value = e.latlng.lng;
+            }
+
+            function getUbicacion() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position){
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        latField.value = lat; 
+                        lonField.value = lon; 
+                        mk.setLatLng(L.latLng(lat, lon)).addTo(map);
+                        map.setZoom(4);
+                        map.panTo([lat, lon]);
+                    });
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
             }
 
             map.on('click', onMapClick);
+            document.getElementById("btn-ubicar").onclick = getUbicacion;
 
         });
     </script>
+    <style>
+     .leaflet-container {  /* all maps */
+            width:  600px;
+            height: 400px;
+        }
+    </style>
 </head>
 <body>
     <div class="container" style="max-width:600px">
-    {% leaflet_map "main" %}
+            <p>Ubica la posición deseada en el mapa o utiliza el botón para
+            identificar tu ubicación</p>
+    <button id="btn-ubicar">Identificar ubicación</button>
+    {% leaflet_map "main"%}
         <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
             <p>Por favor contesta las siguientes preguntas</p>
          
