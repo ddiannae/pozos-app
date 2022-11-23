@@ -44,7 +44,10 @@ class Encuesta(models.Model):
         choices = AGUAS 
     )
     cuidador = models.BooleanField(choices = SI_NO) 
+    vasos = models.PositiveSmallIntegerField(default=0)
+    lat = models.FloatField()
+    lon = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    vasos = models.PositiveSmallIntegerField(default=0)
+
 
