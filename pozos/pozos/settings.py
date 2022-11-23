@@ -33,12 +33,16 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'encuesta.apps.EncuestaConfig',
+    'mapi',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'leaflet',
+    'djgeojson',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -125,3 +129,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LEAFLET_CONFIG = {
+    'SPATIAL_EXTENT': (-120, 32, -90, 20),
+    'DEFAULT_CENTER': (24.4979901, -103.4528147),
+    'DEFAULT_ZOOM': 6,
+    'MIN_ZOOM': 4,
+    'MAX_ZOOM': 18,
+    'DEFAULT_PRECISION': 6,
+    'MINIMAP': False,
+    'RESET_VIEW': True
+}
