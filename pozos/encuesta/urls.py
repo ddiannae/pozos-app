@@ -1,9 +1,9 @@
 from django.urls import path
 
-from . import views
+from encuesta import views
 
 app_name = 'encuesta'
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('contestar/', views.ContestarEncuestaView.as_view(), name='contestar'),
+    path('<int:pk>/', views.ResultadoEncuestaView.as_view(), name='resultado'),
+    path('', views.ContestarEncuestaView.as_view(), name='contestar'),
 ]

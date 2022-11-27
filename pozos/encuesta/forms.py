@@ -1,6 +1,7 @@
 from django import forms
 from .models import Encuesta
 from django.utils.translation import gettext_lazy as _
+from django.forms.widgets import HiddenInput
 
 class AddForm(forms.ModelForm):
 
@@ -12,6 +13,10 @@ class AddForm(forms.ModelForm):
             'edad': forms.NumberInput(attrs={'class': 'form-control'}),
             'peso': forms.NumberInput(attrs={'class': 'form-control'}),
             'vasos': forms.NumberInput(attrs={'class': 'form-control'}),
+            'sexo': forms.Select(attrs={'class': 'form-select'}),
+            'agua_cocinar': forms.Select(attrs={'class': 'form-select'}),
+            'agua_tomar': forms.Select(attrs={'class': 'form-select'}),
+            'cuidador': forms.Select(attrs={'class': 'form-select'}),
         }
         labels = {
             'edad': _('¿Cuántos años tienes?'),
@@ -25,5 +30,5 @@ class AddForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["lat"].widget.attrs['readonly'] = True
-        self.fields["lon"].widget.attrs['readonly'] = True
+        self.fields["lat"].widget = HiddenInput()
+        self.fields["lon"].widget = HiddenInput()

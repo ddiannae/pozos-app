@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'leaflet',
     'djgeojson',
-    'rest_framework'
+    'rest_framework',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'pozos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,7 +131,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LEAFLET_CONFIG = {
-    'SPATIAL_EXTENT': (-115, 33, -87, 20),
+    'SPATIAL_EXTENT': (-120, 33, -85, 14.5),
     'DEFAULT_CENTER': (24.4979901, -103.4528147),
     'DEFAULT_ZOOM': 4,
     'MIN_ZOOM': 4,

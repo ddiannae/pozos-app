@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+
+    {% bootstrap_css %}
+
+    {% bootstrap_javascript %}
+
+    {% bootstrap_messages %}
+
+    {% block header_scripts %}
+
+    {% endblock header_scripts %}
+
+    {% block css %}
+
+    {% endblock css %}
+    <title>Estimación de riesgo en consumo de agua</title>
+</head>
+<body>
+    <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <span class="fs-3">Estimación de riesgo en el consumo de agua</span>
+    </header>
+  </div>
+    {% block content %}
+
+    {% endblock content %}
+    <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">Universidad Autónoma de Zacatecas</span>
+    </div>
+    </footer>
+</body>
+</html>
