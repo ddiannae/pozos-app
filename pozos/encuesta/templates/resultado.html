@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block css %}
+   <style>
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(139, 206, 172, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .125em 1.5em rgba(48, 118, 83, .3), inset 0 .125em .5em rgba(48, 118, 83, .3);
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="px-4 py-5 my-5 text-center">
+   <h1 class="display-6 fw-bold">¡Gracias por contestar la encuesta!</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4"> Recuerda que los resultados son una guía y no deben utilizarse para tomar decisiones médicas.</p>
+    </div>
+</div>
+
+<div class="b-example-divider"></div>
+
+<div class="px-4 py-5 my-5 text-center">
+   <p class="h3">El sitio de concentración de agua más cercano es 
+   <span>{{pozo.sitio}}</span> en <span>{{pozo.municipio}}</span>, <span>{{pozo.estado}}</span>.</p>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Este <span>{{pozo.subtipo}}</span>
+       tiene una concentración de hierro total
+        {% if pozo.fe_total == 0.025 %}
+            menor a {{ pozo.fe_total}}
+        {% else %}
+            de {{ pozo.fe_total}}
+        {% endif %}.
+        Con una calidad asociada a este elemento de {{ pozo.fe_calidad}}
+      </p>  
+    </div>
+</div>
+
+<div class="b-example-divider"></div>
+<div class="px-4 py-5 my-5 text-center">
+   <p class="h3"> El total de agua consumida es de {{object.total_vasos}} ml.</p>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">
+      </p>  
+    </div>
+</div>
+
+
+{% endblock content %}
+
