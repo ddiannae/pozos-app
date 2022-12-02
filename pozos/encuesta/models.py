@@ -50,4 +50,8 @@ class Encuesta(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def total_vasos(self):
+        return self.vasos * 250
+
 

@@ -2,9 +2,11 @@ from django import forms
 from .models import Encuesta
 from django.utils.translation import gettext_lazy as _
 from django.forms.widgets import HiddenInput
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
-class AddForm(forms.ModelForm):
-
+class ContestarForm(forms.ModelForm):
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
     class Meta:
         model = Encuesta
         fields = ('lat', 'lon', 'edad', 'peso', 'sexo', 'agua_cocinar', 'agua_tomar',
@@ -27,6 +29,7 @@ class AddForm(forms.ModelForm):
             'vasos': _('¿Cuántos vasos de agua tomas al día?'),
             'cuidador': _('¿Eres el o la principal cuidadora de menores de edad?')
         }
+
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
