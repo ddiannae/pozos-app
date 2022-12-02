@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from encuesta import views
 
 urlpatterns = [
-    path('encuesta/', include('encuesta.urls')),
+    path('', include('encuesta.urls')),
     path('mapi/', include('mapi.urls')),
     path('admin/', admin.site.urls),
 ]
+
+#handler404 = 'encuesta.views.error_404_view'

@@ -12,25 +12,28 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q=)c)cya(jegf93214ste%3rwg9lpen4pu+u2$c!9#jlf!cc^$'
+SECRET_KEY = env('SECRET_KEY') 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
-
 INSTALLED_APPS = [
     'encuesta.apps.EncuestaConfig',
     'mapi',
@@ -43,7 +46,8 @@ INSTALLED_APPS = [
     'leaflet',
     'djgeojson',
     'rest_framework',
-    'bootstrap5'
+    'bootstrap5',
+    'captcha'
 ]
 
 MIDDLEWARE = [
@@ -81,14 +85,12 @@ WSGI_APPLICATION = 'pozos.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf')
-        }
-    }
+    'default': env.db() 
 }
 
+RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY') 
+RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY') 
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
