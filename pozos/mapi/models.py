@@ -20,9 +20,9 @@ NA_TEXT = "No encontrado"
 
 class Pozo(models.Model):
 
-    VERDE = 'VERDE'
-    AMARILLO = 'AMARILLO'
-    ROJO = 'ROJO'
+    VERDE = 'Verde'
+    AMARILLO = 'Amarillo'
+    ROJO = 'Rojo'
 
     SEMAFORO = [
         (VERDE, _('Verde')),

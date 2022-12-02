@@ -11,9 +11,9 @@
     <script>
         const dataurl = '{% url "mapi:pozos" %}';
         const colores = {
-                    'ROJO': '#DA012D',
-                    'VERDE': '#008000',
-                    'AMARILLO': '#ffd700'
+                    'Rojo': '#DA012D',
+                    'Verde': '#008000',
+                    'Amarillo': '#ffd700'
                 }
         
         window.addEventListener("map:init", function (event) {
@@ -27,8 +27,9 @@
                     return resp.json();
                 })
                 .then(function(data) {
+                    console.log(data)
                     data.forEach(pozo => {
-                        L.circle([pozo.lon, pozo.lat], {
+                        L.circle([pozo.lat, pozo.lon], {
                                     color: colores[pozo.semaforo],
                                     fillColor: colores[pozo.semaforo],
                                     fillOpacity: 0.5,
@@ -37,6 +38,9 @@
                     })
                 });
 
+            if(latField.value != ""  || lonField.value != "" ) {
+                 mk.setLatLng(L.latLng(latField.value , lonField.value)).addTo(map);
+            }
 
             function onMapClick(e) {
                 mk.setLatLng(e.latlng).addTo(map);
@@ -54,7 +58,8 @@
                         mk.setLatLng(L.latLng(lat, lon)).addTo(map);
                         map.setZoom(4);
                         map.panTo([lat, lon]);
-                    });
+                    }, (error) => console.log(new Date(), error), 
+                    { enableHighAccuracy: false, timeout: 5000});
                 } else {
                     x.innerHTML = "Geolocation is not supported by this browser.";
                 }
@@ -147,6 +152,11 @@
                             <label class="form-label" for="{{ form.vasos.auto_id }}">{{ form.vasos.label }}</label>
                             <div class="mb-3">
                                 {{ form.vasos }}
+                            </div>
+
+                            <label class="form-label" for="{{ form.vasos.auto_id }}">{{ form.captcha.label }}</label>
+                            <div class="mb-3">
+                                {{ form.captcha }}
                             </div>
 
                             <input type="submit" class="btn btn-secondary" value="Enviar">
