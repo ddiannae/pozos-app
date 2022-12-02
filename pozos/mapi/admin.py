@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Pozo
 
-# Register your models here.
+class PozoAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Pozo._meta.get_fields()]
+
+admin.site.register(Pozo, PozoAdmin)
