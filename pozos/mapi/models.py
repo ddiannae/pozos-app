@@ -14,6 +14,10 @@ DUR_CHOICES = ["Potable - Suave", "Potable - Moderadamente suave", "Potable - Du
                "Muy dura e indeseable usos industrial y domestico"]
 COLI_CHOICES = ["Excelente", "Buena calidad", "Aceptable", "Contaminada",
                 "Fuertemente contaminada"]
+NNO3_CHOICES = ["Potable - Excelente", "Potable - Buena calidad",
+                "No apta como FAAP"]
+SHARED_CHOICES = ["Potable - Excelente", "Apta como FAAP", "No apta como FAAP"]
+
 # rojo, naranja, amarillo, turquesa, azul, lightgrey
 COLORES = ["#C70039", "#FF5733", "#FFC300", "#40E0D0", "#0000CD",  "#D3D3D3"]
 NA_TEXT = "No encontrado"
@@ -47,6 +51,9 @@ class Pozo(models.Model):
     fluor_total = models.FloatField(null=True)
     dur_total = models.FloatField(null=True)
     coli_total = models.FloatField(null=True)
+    nno3_total = models.FloatField(null=True)
+    as_total = models.FloatField(null=True)
+    cd_total = models.FloatField(null=True)
 
     semaforo = models.CharField(
         max_length = 32,
@@ -262,7 +269,6 @@ class Pozo(models.Model):
         elif self.fluor_calidad == FLUOR_CHOICES[3]:
             return COLORES[0] 
 
-
     @property
     def dur_calidad(self):
         if self.dur_total is None:
@@ -346,3 +352,105 @@ class Pozo(models.Model):
             return COLORES[1] 
         else:
             return COLORES[0]
+
+    @property
+    def nno3_calidad(self):
+        if self.nno3_total is None:
+            return None
+        elif self.nno3_total <= 5:
+            return NNO3_CHOICES[0]
+        elif self.nno3_total > 5 and self.nno3_total < 11:
+            return NNO3_CHOICES[1]
+        else:
+            return NNO3_CHOICES[2]
+
+    @property
+    def nno3_descripcion(self):
+        if self.nno3_calidad is None:
+            return NA_TEXT
+        elif self.nno3_calidad == NNO3_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        elif self.nno3_calidad == NNO3_CHOICES[1]:
+            return """Aguas con indicios de aguas residuales o fertilizantes.
+            Condición eutrófica-altos niveles de nutrientes. Efectos moderados en
+            cultivos regados"""
+        elif self.nno3_calidad == NNO3_CHOICES[2]:
+            return "Aguas superficiales con fuerte impacto de aguas residuales crudas con alta carga de nutrientes. Condición hipertrófica, florecimientos algales que incluyen especies tóxicas a seres vivos"
+
+    @property
+    def nno3_color(self):
+        if self.nno3_calidad is None:
+            return COLORES[-1]
+        elif self.nno3_calidad == NNO3_CHOICES[0]:
+            return COLORES[4]
+        elif self.nno3_calidad == NNO3_CHOICES[1]:
+            return COLORES[3]
+        else:
+            return COLORES[0]
+
+    @property
+    def as_calidad(self):
+        if self.as_total is None:
+            return None
+        elif self.as_total <= 0.01:
+            return SHARED_CHOICES[0]
+        elif self.as_total > 0.01 and self.as_total <= 0.025:
+            return SHARED_CHOICES[1]
+        else:
+            return SHARED_CHOICES[2]
+ 
+    @property
+    def as_descripcion(self):
+        if self.as_calidad is None:
+            return NA_TEXT
+        elif self.as_calidad == SHARED_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        elif self.as_calidad == SHARED_CHOICES[1]:
+            return "Agua apta como fuente de abastecimiento de agua potable"
+        else:
+            return "Agua no apta como fuente de abastecimiento de agua potable o requiere de tratamiento para su remoción"
+
+    @property
+    def as_color(self):
+        if self.as_calidad is None:
+            return COLORES[-1]
+        elif self.as_calidad == SHARED_CHOICES[0]:
+            return COLORES[4]
+        elif self.as_calidad == SHARED_CHOICES[1]:
+            return COLORES[3]
+        else:
+            return COLORES[0]
+
+    @property
+    def cd_calidad(self):
+        if self.cd_total is None:
+            return None
+        elif self.cd_total <= 0.003:
+            return SHARED_CHOICES[0]
+        elif self.cd_total > 0.003 and self.cd_total <= 0.005:
+            return SHARED_CHOICES[1]
+        else:
+            return SHARED_CHOICES[2]
+
+    @property
+    def cd_descripcion(self):
+        if self.cd_calidad is None:
+            return NA_TEXT
+        elif self.cd_calidad == SHARED_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        elif self.cd_calidad == SHARED_CHOICES[1]:
+            return "Agua apta como fuente de abastecimiento de agua potable"
+        else:
+            return "Agua no apta como fuente de abastecimiento de agua potable"
+
+    @property
+    def cd_color(self):
+        if self.cd_calidad is None:
+            return COLORES[-1]
+        elif self.cd_calidad == SHARED_CHOICES[0]:
+            return COLORES[4]
+        elif self.cd_calidad == SHARED_CHOICES[1]:
+            return COLORES[3]
+        elif self.cd_calidad == SHARED_CHOICES[2]:
+            return COLORES[0]
+

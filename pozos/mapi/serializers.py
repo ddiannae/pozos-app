@@ -9,6 +9,9 @@ class PozoSerializers(serializers.ModelSerializer):
     fluor_descripcion = serializers.ReadOnlyField()
     dur_descripcion = serializers.ReadOnlyField()
     coli_descripcion = serializers.ReadOnlyField()
+    nno3_descripcion = serializers.ReadOnlyField()
+    as_descripcion = serializers.ReadOnlyField()
+    cd_descripcion = serializers.ReadOnlyField()
     alc_color = serializers.ReadOnlyField()
     conduct_color = serializers.ReadOnlyField()
     sdtm_sal_color = serializers.ReadOnlyField()
@@ -16,6 +19,9 @@ class PozoSerializers(serializers.ModelSerializer):
     fluor_color = serializers.ReadOnlyField()
     dur_color = serializers.ReadOnlyField()
     coli_color = serializers.ReadOnlyField()
+    nno3_color = serializers.ReadOnlyField()
+    as_color = serializers.ReadOnlyField()
+    cd_color = serializers.ReadOnlyField()
 
     class Meta:
         model = Pozo 
