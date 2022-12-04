@@ -4,6 +4,7 @@ from encuesta.forms import ContestarForm
 from encuesta.models import Encuesta
 from django.urls import reverse_lazy, reverse
 from mapi.views import Pozo_APIView_Closest
+import json
 
 def index(request):
      return HttpResponse("Hello, world. You're at the polls index.")
@@ -27,7 +28,7 @@ class ResultadoEncuestaView(generic.DetailView):
         closest_pozo =  Pozo_APIView_Closest.as_view()(request= self.request,
                                               lat=self.object.lat, 
                                               lon=self.object.lon)
-        context['distancia'] = closest_pozo.data['distancia']
+        context['distancia'] = json.dumps(closest_pozo.data['distancia'])
         context['pozo'] = closest_pozo.data["pozo"]
         return context
 
