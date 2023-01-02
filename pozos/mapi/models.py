@@ -54,6 +54,9 @@ class Pozo(models.Model):
     nno3_total = models.FloatField(null=True)
     as_total = models.FloatField(null=True)
     cd_total = models.FloatField(null=True)
+    cr_total = models.FloatField(null=True)
+    hg_total = models.FloatField(null=True)
+    pb_total = models.FloatField(null=True)
 
     semaforo = models.CharField(
         max_length = 32,
@@ -454,3 +457,83 @@ class Pozo(models.Model):
         elif self.cd_calidad == SHARED_CHOICES[2]:
             return COLORES[0]
 
+    @property
+    def cr_calidad(self):
+        if self.cr_total is None:
+            return None
+        elif self.cr_total <= 0.05:
+            return SHARED_CHOICES[0]
+        else:
+            return SHARED_CHOICES[2]
+
+    @property
+    def cr_descripcion(self):
+        if self.cr_calidad is None:
+            return NA_TEXT
+        elif self.cr_calidad == SHARED_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        else:
+            return "Agua no apta como fuente de abastecimiento de agua potable"
+
+    @property
+    def cr_color(self):
+        if self.cr_calidad is None:
+            return COLORES[-1]
+        elif self.cd_calidad == SHARED_CHOICES[0]:
+            return COLORES[4]
+        elif self.cd_calidad == SHARED_CHOICES[2]:
+            return COLORES[0]
+
+    @property
+    def hg_calidad(self):
+        if self.hg_total is None:
+            return None
+        elif self.hg_total <= 0.006:
+            return SHARED_CHOICES[0]
+        else:
+            return SHARED_CHOICES[2]
+
+    @property
+    def hg_descripcion(self):
+        if self.hg_calidad is None:
+            return NA_TEXT
+        elif self.hg_calidad == SHARED_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        else:
+            return "Agua no apta como fuente de abastecimiento de agua potable"
+
+    @property
+    def hg_color(self):
+        if self.hg_calidad is None:
+            return COLORES[-1]
+        elif self.hg_calidad == SHARED_CHOICES[0]:
+            return COLORES[4]
+        elif self.hg_calidad == SHARED_CHOICES[2]:
+            return COLORES[0]
+
+    @property
+    def pb_calidad(self):
+        if self.pb_total is None:
+            return None
+        elif self.pb_total <= 0.01:
+            return SHARED_CHOICES[0]
+        else:
+            return SHARED_CHOICES[2]
+
+    @property
+    def pb_descripcion(self):
+        if self.pb_calidad is None:
+            return NA_TEXT
+        elif self.pb_calidad == SHARED_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        else:
+            return "Agua no apta como fuente de abastecimiento de agua potable"
+
+    @property
+    def pb_color(self):
+        if self.pb_calidad is None:
+            return COLORES[-1]
+        elif self.pb_calidad == SHARED_CHOICES[0]:
+            return COLORES[4]
+        elif self.pb_calidad == SHARED_CHOICES[2]:
+            return COLORES[0]
