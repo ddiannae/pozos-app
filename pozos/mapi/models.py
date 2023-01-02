@@ -16,6 +16,8 @@ COLI_CHOICES = ["Excelente", "Buena calidad", "Aceptable", "Contaminada",
                 "Fuertemente contaminada"]
 NNO3_CHOICES = ["Potable - Excelente", "Potable - Buena calidad",
                 "No apta como FAAP"]
+MN_FE_CHOICES = ["Potable - Excelente", "Sin efectos en la salud - Puede dar color al agua",
+                 "Puede afectar la salud"]
 SHARED_CHOICES = ["Potable - Excelente", "Apta como FAAP", "No apta como FAAP"]
 
 # rojo, naranja, amarillo, turquesa, azul, lightgrey
@@ -44,7 +46,6 @@ class Pozo(models.Model):
     lon = models.FloatField()
     lat = models.FloatField()
     periodo = models.PositiveSmallIntegerField()
-    #fe_total = models.FloatField()
     alc_total = models.FloatField(null=True)
     conduct_total = models.FloatField(null=True)
     sdtm_total = models.FloatField(null=True)
@@ -57,6 +58,8 @@ class Pozo(models.Model):
     cr_total = models.FloatField(null=True)
     hg_total = models.FloatField(null=True)
     pb_total = models.FloatField(null=True)
+    mn_total = models.FloatField(null=True)
+    fe_total = models.FloatField(null=True)
 
     semaforo = models.CharField(
         max_length = 32,
@@ -256,7 +259,7 @@ class Pozo(models.Model):
             return "Agua con nivel medio de fluoruros"
         elif self.fluor_calidad == FLUOR_CHOICES[2]:
             return "Agua con bajo contenido de fluoruros"
-        elif self.fluor_calidad == FLUOR_CHOICES[3]:
+        else:
             return "Agua no apta como fuente de abastecimiento de agua potable"
 
     @property
@@ -269,7 +272,7 @@ class Pozo(models.Model):
             return COLORES[2] 
         elif self.fluor_calidad == FLUOR_CHOICES[2]:
             return COLORES[1] 
-        elif self.fluor_calidad == FLUOR_CHOICES[3]:
+        else:
             return COLORES[0] 
 
     @property
@@ -295,7 +298,7 @@ class Pozo(models.Model):
             return "Agua potable. Moderado contenido de minerales"
         elif self.dur_calidad == DUR_CHOICES[2]:
             return "Agua potable. Alto contenido de minerales, principalmente sales de calcio y magnesio"
-        elif self.dur_calidad == DUR_CHOICES[3]:
+        else:
             return "Agua no apta como fuente de abastecimiento de agua potable. Muy dura e indeseable usos industrial y doméstico"
 
     @property
@@ -308,7 +311,7 @@ class Pozo(models.Model):
             return COLORES[3] 
         elif self.dur_calidad == DUR_CHOICES[2]:
             return COLORES[2] 
-        elif self.dur_calidad == DUR_CHOICES[3]:
+        else:
             return COLORES[0] 
 
     @property
@@ -377,7 +380,7 @@ class Pozo(models.Model):
             return """Aguas con indicios de aguas residuales o fertilizantes.
             Condición eutrófica-altos niveles de nutrientes. Efectos moderados en
             cultivos regados"""
-        elif self.nno3_calidad == NNO3_CHOICES[2]:
+        else:
             return "Aguas superficiales con fuerte impacto de aguas residuales crudas con alta carga de nutrientes. Condición hipertrófica, florecimientos algales que incluyen especies tóxicas a seres vivos"
 
     @property
@@ -454,7 +457,7 @@ class Pozo(models.Model):
             return COLORES[4]
         elif self.cd_calidad == SHARED_CHOICES[1]:
             return COLORES[3]
-        elif self.cd_calidad == SHARED_CHOICES[2]:
+        else:
             return COLORES[0]
 
     @property
@@ -481,7 +484,7 @@ class Pozo(models.Model):
             return COLORES[-1]
         elif self.cd_calidad == SHARED_CHOICES[0]:
             return COLORES[4]
-        elif self.cd_calidad == SHARED_CHOICES[2]:
+        else:
             return COLORES[0]
 
     @property
@@ -508,7 +511,7 @@ class Pozo(models.Model):
             return COLORES[-1]
         elif self.hg_calidad == SHARED_CHOICES[0]:
             return COLORES[4]
-        elif self.hg_calidad == SHARED_CHOICES[2]:
+        else:
             return COLORES[0]
 
     @property
@@ -535,5 +538,65 @@ class Pozo(models.Model):
             return COLORES[-1]
         elif self.pb_calidad == SHARED_CHOICES[0]:
             return COLORES[4]
-        elif self.pb_calidad == SHARED_CHOICES[2]:
+        else:
             return COLORES[0]
+
+    @property
+    def mn_calidad(self):
+        if self.mn_total is None:
+            return None
+        elif self.mn_total <= 0.15:
+            return MN_FE_CHOICES[0]
+        elif self.mn_total > 0.15 and self.mn_total <= 0.4:
+            return MN_FE_CHOICES[1]
+        else:
+            return MN_FE_CHOICES[2]
+
+    @property
+    def mn_descripcion(self):
+        if self.mn_calidad is None:
+            return NA_TEXT
+        elif self.mn_calidad == MN_FE_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        elif self.mn_calidad == MN_FE_CHOICES[1]:
+            return "Sin efectos en la salud - Puede dar color al agua"
+        else:
+            return "Agua no apta como fuente de abastecimiento de agua potable. Puede afectar la salud"
+
+    @property
+    def mn_color(self):
+        if self.mn_calidad is None:
+            return COLORES[-1]
+        elif self.mn_calidad == MN_FE_CHOICES[0]:
+            return COLORES[4]
+        elif self.mn_calidad == MN_FE_CHOICES[1]:
+            return COLORES[3]
+        else:
+            return COLORES[0]
+
+    @property
+    def fe_calidad(self):
+        if self.fe_total is None:
+            return None
+        elif self.fe_total <= 0.3:
+            return MN_FE_CHOICES[0]
+        else:
+            return MN_FE_CHOICES[1]
+
+    @property
+    def fe_descripcion(self):
+        if self.fe_calidad is None:
+            return NA_TEXT
+        elif self.fe_calidad == MN_FE_CHOICES[0]:
+            return "Agua potable. Agua no contaminada o condición normal"
+        else:
+            return "Sin efectos en la salud - Puede dar color al agua"
+
+    @property
+    def fe_color(self):
+        if self.fe_calidad is None:
+            return COLORES[-1]
+        elif self.fe_calidad == MN_FE_CHOICES[0]:
+            return COLORES[4]
+        else:
+            return COLORES[3]
