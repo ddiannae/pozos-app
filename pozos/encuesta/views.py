@@ -4,6 +4,7 @@ from encuesta.forms import ContestarForm
 from encuesta.models import Encuesta
 from django.urls import reverse_lazy, reverse
 from mapi.views import Pozo_APIView_Closest
+from django.shortcuts import get_object_or_404, render
 import json
 
 def index(request):
@@ -17,20 +18,15 @@ class ContestarEncuestaView(generic.CreateView):
         print(self.object)
         return reverse_lazy('encuesta:resultado', kwargs={'pk': self.object.pk})
 
-
-#
-class ResultadoEncuestaView(generic.DetailView):
-    model = Encuesta 
-    template_name = 'resultado.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        closest_pozo =  Pozo_APIView_Closest.as_view()(request= self.request,
-                                              lat=self.object.lat, 
-                                              lon=self.object.lon)
-        context['distancia'] = json.dumps(closest_pozo.data['distancia'])
-        context['pozo'] = closest_pozo.data["pozo"]
-        return context
+def getResultado(request, encuesta_id):
+    encuesta = get_object_or_404(Encuesta, pk=encuesta_id)
+    closest_pozo =  Pozo_APIView_Closest.as_view()(request=request,
+                                          lat=encuesta.lat, 
+                                          lon=encuesta.lon)
+    return render(request, 'resultado.html', {
+        'encuesta' : encuesta,
+        'pozo' : closest_pozo.data['pozo']
+    })
 
 def error_404_view(request, exception):
     return render(request, '404.html')
