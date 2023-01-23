@@ -116,13 +116,54 @@
 
 <div class="b-example-divider"></div>
 <div class="px-4 py-5 my-5 text-center">
-   <p class="h3"> El total de agua consumida es de {{encuesta.total_vasos}} ml.</p>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">
-      </p>  
-    </div>
-</div>
+    <p class="h4"> Indicaste que tu peso es de {{encuesta.peso}} kg. y consumes un total de agua de
+    {{encuesta.total_vasos}} ml </p>
+    <p class="lead mb-4">Con esta información, a continuación te mostramos los cocientes de riesgo dados los contaminantes
+    presentes en la fuente de abastecimiento</p>
 
+    <div class="col-lg-6 mx-auto">
+        <div class="container" id="contaminantes">
+          <div class="row">
+            <div class="col-sm ">
+              <div class="col nombre my-2 lead">Arsénico Cancerígeno</div>
+              <p class="h4">{{stats.riesgo_as_ca}}</p>
+            </div>
+            <div class="col-sm ">
+              <div class="col nombre my-2 lead">Arsénico Efectos Dérmicos</div>
+              <p class="h4">{{stats.riesgo_as_der}}</p> 
+            </div>
+            <div class="col-sm">
+              <div class="col my-2 nombre lead">Cadmio</div>
+              <p class="h4">{{stats.riesgo_cd}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div class="col my-2 nombre lead">Cromo</div>
+              <p class="h4">{{stats.riesgo_cr}}</p> 
+            </div>
+            <div class="col-sm">
+              <div class="col my-2 nombre lead">Cadmio</div>
+              <p class="h4">{{stats.riesgo_cd}}</p>
+            </div>
+            <div class="col-sm">
+              <div class="col my-2 nombre lead">Fluoruros</div>
+              <p class="h4">{{stats.riesgo_fl}}</p> 
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div class="col my-2 nombre lead">Mercurio</div>
+              <p class="h4">{{stats.riesgo_hg}}</p> 
+            </div>
+            <div class="col-sm">
+              <div class="col my-2 nombre lead">Manganeso</div>
+              <p class="h4">{{stats.riesgo_mn}}</p>
+            </div>
+          </div>
+        </div>
+    </div>  
+</div>
 
 {% endblock content %}
 
