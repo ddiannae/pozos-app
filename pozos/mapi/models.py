@@ -269,9 +269,9 @@ class Pozo(models.Model):
         elif self.fluor_calidad == FLUOR_CHOICES[0]:
             return COLORES[4]
         elif self.fluor_calidad == FLUOR_CHOICES[1]:
-            return COLORES[2] 
+            return COLORES[3] 
         elif self.fluor_calidad == FLUOR_CHOICES[2]:
-            return COLORES[1] 
+            return COLORES[3] 
         else:
             return COLORES[0] 
 
@@ -318,7 +318,7 @@ class Pozo(models.Model):
     def coli_calidad(self):
         if self.coli_total is None:
             return None
-        elif self.coli_total <= 1.1:
+        elif self.coli_total < 1.1:
             return COLI_CHOICES[0]
         elif self.coli_total >= 1.1 and self.coli_total <= 200:
             return COLI_CHOICES[1]
@@ -347,7 +347,7 @@ class Pozo(models.Model):
     @property
     def coli_color(self):
         if self.coli_calidad is None:
-            return NA_TEXT
+            return COLORES[-1] 
         elif self.coli_calidad == COLI_CHOICES[0]:
             return COLORES[4] 
         elif self.coli_calidad == COLI_CHOICES[1]:

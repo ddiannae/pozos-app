@@ -142,3 +142,4 @@ LEAFLET_CONFIG = {
     'MINIMAP': False,
     'RESET_VIEW': True
 }
+TEST_RUNNER = "redgreenunittest.django.runner.RedGreenDiscoverRunner"
