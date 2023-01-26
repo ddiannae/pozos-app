@@ -365,7 +365,7 @@ class Pozo(models.Model):
             return None
         elif self.nno3_total <= 5:
             return NNO3_CHOICES[0]
-        elif self.nno3_total > 5 and self.nno3_total < 11:
+        elif self.nno3_total > 5 and self.nno3_total <= 11:
             return NNO3_CHOICES[1]
         else:
             return NNO3_CHOICES[2]
@@ -377,9 +377,7 @@ class Pozo(models.Model):
         elif self.nno3_calidad == NNO3_CHOICES[0]:
             return "Agua potable. Agua no contaminada o condición normal"
         elif self.nno3_calidad == NNO3_CHOICES[1]:
-            return """Aguas con indicios de aguas residuales o fertilizantes.
-            Condición eutrófica-altos niveles de nutrientes. Efectos moderados en
-            cultivos regados"""
+            return "Aguas con indicios de aguas residuales o fertilizantes. Condición eutrófica-altos niveles de nutrientes. Efectos moderados en cultivos regados"
         else:
             return "Aguas superficiales con fuerte impacto de aguas residuales crudas con alta carga de nutrientes. Condición hipertrófica, florecimientos algales que incluyen especies tóxicas a seres vivos"
 

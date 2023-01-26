@@ -411,7 +411,83 @@ class PozoModelTests(TestCase):
         self.assertEqual(pozo.coli_calidad, "Fuertemente contaminada")
         self.assertEqual(pozo.coli_descripcion, "Aguas con fuerte contaminación bacteriológica. Alteración severa") 
         self.assertEqual(pozo.coli_color, "#C70039")
-#nno3_total
+
+    def test_nno3_calidad_descripcion_and_color_are_ok_when_nno3_total_is_None(self):
+        pozo = Pozo(nno3_total = None)
+        self.assertIs(pozo.nno3_calidad, None)
+        self.assertEqual(pozo.nno3_descripcion, "No encontrado")
+        self.assertEqual(pozo.nno3_color, "#D3D3D3")
+
+    def test_nno3_calidad_descripcion_and_color_are_ok_when_nno3_total_is_5(self):
+        pozo = Pozo(nno3_total = 5)
+        self.assertEqual(pozo.nno3_calidad,"Potable - Excelente" )
+        self.assertEqual(pozo.nno3_descripcion, "Agua potable. Agua no contaminada o condición normal")
+        self.assertEqual(pozo.nno3_color, "#0000CD")
+
+    def test_nno3_calidad_descripcion_and_color_are_ok_when_nno3_total_is_less_than_5(self):
+        pozo = Pozo(nno3_total = uniform(0,5))
+        self.assertEqual(pozo.nno3_calidad,"Potable - Excelente" )
+        self.assertEqual(pozo.nno3_descripcion, "Agua potable. Agua no contaminada o condición normal")
+        self.assertEqual(pozo.nno3_color, "#0000CD")
+
+    def test_nno3_calidad_descripcion_and_color_are_ok_when_nno3_total_is_between_5_and_11(self):
+        pozo = Pozo(nno3_total = uniform(5.1, 11))
+        self.assertEqual(pozo.nno3_calidad,"Potable - Buena calidad" )
+        self.assertEqual(pozo.nno3_descripcion, "Aguas con indicios de aguas residuales o fertilizantes." +
+                         " Condición eutrófica-altos niveles de nutrientes. Efectos moderados en cultivos regados")
+        self.assertEqual(pozo.nno3_color, "#40E0D0")
+
+    def test_nno3_calidad_descripcion_and_color_are_ok_when_nno3_total_is_11(self):
+        pozo = Pozo(nno3_total = 11)
+        self.assertEqual(pozo.nno3_calidad,"Potable - Buena calidad" )
+        self.assertEqual(pozo.nno3_descripcion, "Aguas con indicios de aguas residuales o fertilizantes." +
+                         " Condición eutrófica-altos niveles de nutrientes. Efectos moderados en cultivos regados")
+        self.assertEqual(pozo.nno3_color, "#40E0D0")
+
+    def test_nno3_calidad_descripcion_and_color_are_ok_when_nno3_total_is_greater_than_11(self):
+        pozo = Pozo(nno3_total = uniform(11.1, 30))
+        self.assertEqual(pozo.nno3_calidad,"No apta como FAAP" )
+        self.assertEqual(pozo.nno3_descripcion, "Aguas superficiales con fuerte impacto de aguas residuales" +
+                         " crudas con alta carga de nutrientes. Condición hipertrófica, florecimientos algales"+
+                         " que incluyen especies tóxicas a seres vivos")
+        self.assertEqual(pozo.nno3_color, "#C70039")
+
+    def test_as_calidad_descripcion_and_color_are_ok_when_as_total_is_None(self):
+        pozo = Pozo(as_total = None)
+        self.assertIs(pozo.as_calidad, None)
+        self.assertEqual(pozo.as_descripcion, "No encontrado")
+        self.assertEqual(pozo.as_color, "#D3D3D3")
+
+    def test_as_calidad_descripcion_and_color_are_ok_when_as_total_is_0p01(self):
+        pozo = Pozo(as_total = 0.01)
+        self.assertEqual(pozo.as_calidad, "Potable - Excelente")
+        self.assertEqual(pozo.as_descripcion, "Agua potable. Agua no contaminada o condición normal")
+        self.assertEqual(pozo.as_color, "#0000CD")
+
+    def test_as_calidad_descripcion_and_color_are_ok_when_as_total_is_less_than_0p01(self):
+        pozo = Pozo(as_total = uniform(0, 0.01))
+        self.assertEqual(pozo.as_calidad, "Potable - Excelente")
+        self.assertEqual(pozo.as_descripcion, "Agua potable. Agua no contaminada o condición normal")
+        self.assertEqual(pozo.as_color, "#0000CD")
+
+    def test_as_calidad_descripcion_and_color_are_ok_when_as_total_is_between_0p01_and_0p025(self):
+        pozo = Pozo(as_total = uniform(0.01, 0.025))
+        self.assertEqual(pozo.as_calidad, "Apta como FAAP")
+        self.assertEqual(pozo.as_descripcion, "Agua apta como fuente de abastecimiento de agua potable")
+        self.assertEqual(pozo.as_color, "#40E0D0")
+
+    def test_as_calidad_descripcion_and_color_are_ok_when_as_total_is_0p025(self):
+        pozo = Pozo(as_total = 0.025)
+        self.assertEqual(pozo.as_calidad, "Apta como FAAP")
+        self.assertEqual(pozo.as_descripcion, "Agua apta como fuente de abastecimiento de agua potable")
+        self.assertEqual(pozo.as_color, "#40E0D0")
+
+    def test_as_calidad_descripcion_and_color_are_ok_when_as_total_is_greater_than_0p025(self):
+        pozo = Pozo(as_total = uniform(0.026, 1))
+        self.assertEqual(pozo.as_calidad, "No apta como FAAP")
+        self.assertEqual(pozo.as_descripcion, "Agua no apta como fuente de abastecimiento de agua potable" +
+                         " o requiere de tratamiento para su remoción")
+        self.assertEqual(pozo.as_color, "#C70039")
 #as_total
 #cd_total
 #cr_total
