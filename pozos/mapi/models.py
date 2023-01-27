@@ -480,7 +480,7 @@ class Pozo(models.Model):
     def cr_color(self):
         if self.cr_calidad is None:
             return COLORES[-1]
-        elif self.cd_calidad == SHARED_CHOICES[0]:
+        elif self.cr_calidad == SHARED_CHOICES[0]:
             return COLORES[4]
         else:
             return COLORES[0]
