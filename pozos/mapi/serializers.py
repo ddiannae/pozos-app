@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from mapi.models import Pozo
 
-class PozoSerializers(serializers.ModelSerializer):
+class PozoSerializer(serializers.ModelSerializer):
     alc_descripcion = serializers.ReadOnlyField()
     conduct_descripcion = serializers.ReadOnlyField()
     sdtm_sal_descripcion = serializers.ReadOnlyField()
@@ -35,4 +35,4 @@ class PozoSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Pozo 
-        fields = '__all__'
+        exclude = ['id', 'periodo', 'clave']
