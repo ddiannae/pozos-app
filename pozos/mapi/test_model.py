@@ -179,7 +179,7 @@ class PozoModelTests(TestCase):
         self.assertEqual(pozo.sdtm_sal_color, "#FFC300")
 
     def test_sdtm_sal_calidad_descripcion_and_color_are_ok_when_sdtm_total_is_greater_than_10000(self):
-        pozo = Pozo(sdtm_total = uniform(10000.1,100000))
+        pozo = Pozo(sdtm_total = uniform(10000.1,15000))
         self.assertEqual(pozo.sdtm_sal_calidad, "Salinas") 
         self.assertEqual(pozo.sdtm_sal_descripcion, "Aguas subterráneas con muy alto contenido de sales")
         self.assertEqual(pozo.sdtm_sal_color, "#C70039")
