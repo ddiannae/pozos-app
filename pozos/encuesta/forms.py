@@ -4,9 +4,12 @@ from django.utils.translation import gettext_lazy as _
 from django.forms.widgets import HiddenInput
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
+from django.core.exceptions import ValidationError
 
 class ContestarForm(forms.ModelForm):
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = ReCaptchaField(widget = ReCaptchaV2Checkbox(attrs={'data-callback': 'enableFormSubmit'}),
+                             label='')
+
     class Meta:
         model = Encuesta
         fields = ('lat', 'lon', 'edad', 'peso', 'sexo', 'agua_cocinar', 'agua_tomar',
@@ -33,5 +36,19 @@ class ContestarForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["lat"].widget = HiddenInput()
-        self.fields["lon"].widget = HiddenInput()
+        self.fields["lon"].error_messages = {'required': 'Elige un punto en el mapa o haz click en el botón para identificar tu ubicación'}
+        self.fields["lat"].error_messages = {'required': ''}
+
+    def clean(self):
+        super(ContestarForm, self).clean()
+        lat = self.cleaned_data.get("lat")
+        lon = self.cleaned_data.get("lon")
+
+        if lat is None or lon is None:
+            return self.cleaned_data
+        if lat < 14.5 or lat > 32.56:
+            self.add_error("lat", "Latitud inválida. Elige un punto dentro del territorio nacional.")
+        if lon < -117.15 or lon > -86.5:
+            self.add_error("lon", "Longitud inválida. Elige un punto dentro del territorio nacional.")
+        return self.cleaned_data
+
