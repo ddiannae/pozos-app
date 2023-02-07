@@ -27,7 +27,6 @@
                     return resp.json();
                 })
                 .then(function(data) {
-                    console.log(data)
                     data.forEach(pozo => {
                         L.circle([pozo.lat, pozo.lon], {
                                     color: colores[pozo.semaforo],
@@ -69,6 +68,13 @@
             document.getElementById("btn-ubicar").onclick = getUbicacion;
 
         });
+
+        function enableFormSubmit() {
+            let subBtn =  document.getElementById('submit-btn');
+            subBtn.classList.remove("btn-secondary");
+            subBtn.classList.add("btn-info");
+            subBtn.disabled = false;
+        }
     </script>
 {% endblock header_scripts %}
 
@@ -88,6 +94,17 @@
             border-width: 1px 0;
             box-shadow: inset 0 .125em 1.5em rgba(48, 118, 83, .3), inset 0 .125em .5em rgba(48, 118, 83, .3);
         }
+
+        .invalid-feedback {
+            display: inline-block;
+            font-size: 1.25em;
+            text-align: center;
+            margin-bottom: 20px
+        }
+
+        .errorlist {
+            list-style: outside none none;
+        }
     </style>
 {% endblock css %}
 
@@ -105,20 +122,23 @@
     <div class="container" style="max-width:600px; padding:0">
         <div class="py-5">
             <div class="row">
-                    <form method="post">
+                    <form method="post" id="encuesta-form" novalidate>
                         {% csrf_token %}
                         <div class="py-5 text-center">
                             <p class="lead">Haz click en la posición deseada en el mapa o utiliza el botón para
                             identificar tu ubicación</p>
-                            <button type="button" id="btn-ubicar"  class="btn btn-secondary">Identificar mi ubicación</button>
+                            <button type="button" id="btn-ubicar"  class="btn btn-info">Identificar mi ubicación</button>
                         </div>
                         
                         {% leaflet_map "main"%}
                       
-                        <div class="my-5">
-                             {{ form.lat }}
-                             {{ form.lon }}
-
+                        <div class="my-3">
+                            {{ form.lat.as_hidden }}
+                            {{ form.lon.as_hidden }}
+                            <div class="invalid-feedback">
+                                {{ form.lat.errors }}
+                                {{ form.lon.errors }}
+                            </div>
                             <label class="form-label" for="{{ form.edad.auto_id }}">{{ form.edad.label }}</label>
                             <div class="mb-3">
                                 {{ form.edad }}
@@ -157,12 +177,38 @@
                             <label class="form-label" for="{{ form.vasos.auto_id }}">{{ form.captcha.label }}</label>
                             <div class="mb-3">
                                 {{ form.captcha }}
+                               
+                            </div>
+                            <div class="invalid-feedback">
+                                {{ form.captcha.errors }}
                             </div>
 
-                            <input type="submit" class="btn btn-secondary" value="Enviar">
+                            <input type="submit" class="btn btn-secondary" value="Enviar" id="submit-btn" disabled="true">
                         </div>
                     </form>
             </div>
         </div>
     </div>
  {% endblock content %}
+
+{% block footer_scripts %}
+<script>
+    (function () {
+    'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        let form = document.getElementById('encuesta-form')
+
+        // Loop over them and prevent submission
+   
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+        });
+    })()
+</script>
+{% endblock footer_scripts %}
