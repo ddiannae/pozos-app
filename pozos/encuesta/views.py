@@ -16,7 +16,7 @@ class ContestarEncuestaView(generic.CreateView):
     template_name = 'contestar.html'
 
     def get_success_url(self):
-        return reverse_lazy('encuesta:resultado', kwargs={'pk': self.object.pk})
+        return reverse_lazy('encuesta:resultado', kwargs={'encuesta_id': self.object.pk})
 
 def getResultado(request, encuesta_id):
     encuesta = get_object_or_404(Encuesta, pk=encuesta_id)

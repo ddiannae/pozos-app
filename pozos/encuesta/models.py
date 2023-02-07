@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+import uuid
 
 class Encuesta(models.Model):
     MUJER = 'mujer'
@@ -29,6 +30,7 @@ class Encuesta(models.Model):
         (False, _('No'))
     )
 
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     edad = models.PositiveSmallIntegerField()
     peso = models.PositiveSmallIntegerField()
     sexo = models.CharField(
