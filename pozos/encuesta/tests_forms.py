@@ -1,4 +1,4 @@
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from .forms import ContestarForm
 from random import uniform, choice, randrange
 from unittest import mock
@@ -18,8 +18,6 @@ class ContestarFormTest(TestCase):
             'agua_cocinar': choice(agua_choices),
             'agua_tomar': choice(agua_choices),
             'cuidador': choice([True, False]),
-            'g-recaptcha-respons': "PASSED",
-            'captcha': "PASSED",
             'lat': uniform(14.5, 32.56),
             'lon': uniform(-117.15, -86.5)
         }
