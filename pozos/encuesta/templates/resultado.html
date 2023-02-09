@@ -38,7 +38,7 @@
 
 <div class="px-4 py-5 my-5 text-center">
    <p class="h3">Estas son las características de la fuente de abastecimiento de agua más cercana a la posición que indicaste. <p/>
-    <p class="h4"> Ubicación: <span>{{pozo.municipio}}</span>, <span>{{pozo.estado}}</span>.</p>
+    <p class="h4"> Ubicación: <span id="mun"></span>, <span id="est"></span>.</p>
 
     <div class="col-lg-6 mx-auto">
       <div class="container" id="contaminantes">
@@ -126,39 +126,39 @@
           <div class="row">
             <div class="col-sm ">
               <div class="col nombre my-2 lead">Arsénico Cancerígeno</div>
-              <p class="h4">{{stats.riesgo_as_ca}}</p>
+              <p class="h4">{{stats.riesgo_as_ca|default_if_none:"--" }}</p>
             </div>
             <div class="col-sm ">
               <div class="col nombre my-2 lead">Arsénico Efectos Dérmicos</div>
-              <p class="h4">{{stats.riesgo_as_der}}</p> 
+              <p class="h4">{{stats.riesgo_as_der|default_if_none:"--"}}</p> 
             </div>
             <div class="col-sm">
               <div class="col my-2 nombre lead">Cadmio</div>
-              <p class="h4">{{stats.riesgo_cd}}</p>
+              <p class="h4">{{stats.riesgo_cd|default_if_none:"--"}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col-sm">
               <div class="col my-2 nombre lead">Cromo</div>
-              <p class="h4">{{stats.riesgo_cr}}</p> 
+              <p class="h4">{{stats.riesgo_cr|default_if_none:"--"}}</p> 
             </div>
             <div class="col-sm">
               <div class="col my-2 nombre lead">Cadmio</div>
-              <p class="h4">{{stats.riesgo_cd}}</p>
+              <p class="h4">{{stats.riesgo_cd|default_if_none:"--"}}</p>
             </div>
             <div class="col-sm">
               <div class="col my-2 nombre lead">Fluoruros</div>
-              <p class="h4">{{stats.riesgo_fl}}</p> 
+              <p class="h4">{{stats.riesgo_fl|default_if_none:"--"}}</p> 
             </div>
           </div>
           <div class="row">
             <div class="col-sm">
               <div class="col my-2 nombre lead">Mercurio</div>
-              <p class="h4">{{stats.riesgo_hg}}</p> 
+              <p class="h4">{{stats.riesgo_hg|default_if_none:"--"}}</p> 
             </div>
             <div class="col-sm">
               <div class="col my-2 nombre lead">Manganeso</div>
-              <p class="h4">{{stats.riesgo_mn}}</p>
+              <p class="h4">{{stats.riesgo_mn|default_if_none:"--"}}</p>
             </div>
           </div>
         </div>
@@ -171,6 +171,8 @@
   <script>
     const contams = [...document.querySelectorAll('#contaminantes > div >div >div:nth-child(2)')].map(({ id }) => id);
     const pozo = {{ pozo|safe }}
+    document.getElementById("mun").innerHTML = pozo["municipio"]
+    document.getElementById("est").innerHTML = pozo["estado:>"]
     contams.forEach(c => {
       document.getElementById(c).style.background = pozo[c+"_color"]
       document.getElementById(c).setAttribute("title", pozo[c+"_descripcion"]);

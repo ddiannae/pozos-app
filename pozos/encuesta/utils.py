@@ -22,6 +22,8 @@ class RiesgoStat:
     ## Dosis exposicion / dosis referencia
 
     def __get_riesgo(self, conc, conc_ref):
+        if self.pozo[conc] is None:
+            return None
         d_exp = (self.pozo[conc] * self.encuesta.total_vasos)/self.encuesta.peso
         return round(d_exp/conc_ref, 4)
 

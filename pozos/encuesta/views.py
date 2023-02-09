@@ -26,7 +26,7 @@ def getResultado(request, encuesta_id):
     rstats = RiesgoStat(encuesta, closest_pozo.data['pozo'])
     return render(request, 'resultado.html', {
         'encuesta' : encuesta,
-        'pozo' : closest_pozo.data['pozo'],
+        'pozo' : json.dumps(closest_pozo.data['pozo']),
         'stats' : rstats
     })
 
