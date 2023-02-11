@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,7 @@
     {% load bootstrap5 %}
 
     {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'base-style.css' %}">
 
     {% bootstrap_javascript %}
 
@@ -23,16 +25,19 @@
 </head>
 <body>
     <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <span class="fs-3">Estimación de riesgo en el consumo de agua</span>
+    <header class="text-center py-3 mb-4 border-bottom">
+        <img alt="Logo del Laboratorio de Epidemiología Ambiental" 
+        src="{% static 'lea-lab-logo.jpeg' %}" width="50%"/>
+        <div class="fs-3 app-title">Estimación de riesgo en el consumo de agua</div>
     </header>
+    
   </div>
     {% block content %}
 
     {% endblock content %}
     <footer class="footer mt-auto py-3 bg-light">
-    <div class="container">
-        <span class="text-muted">Universidad Autónoma de Zacatecas</span>
+    <div class="container text-center">
+        <span class="text-muted">Unidad Académica de Ciencias Químicas  | Universidad Autónoma de Zacatecas</span>
     </div>
     </footer>
     {% block footer_scripts %}

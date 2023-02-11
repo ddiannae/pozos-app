@@ -2,13 +2,6 @@
 
 {% block css %}
    <style>
-        .b-example-divider {
-            height: 3rem;
-            background-color: rgba(139, 206, 172, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .125em 1.5em rgba(48, 118, 83, .3), inset 0 .125em .5em rgba(48, 118, 83, .3);
-        }
         div.color {
           max-width: 75px;
           margin: 0 auto;
@@ -34,7 +27,7 @@
     </div>
 </div>
 
-<div class="b-example-divider"></div>
+<div class="divider"></div>
 
 <div class="px-4 py-5 my-5 text-center">
    <p class="h3">Estas son las características de la fuente de abastecimiento de agua más cercana a la posición que indicaste. <p/>
@@ -114,10 +107,10 @@
   </div>
 </div>
 
-<div class="b-example-divider"></div>
+<div class="divider"></div>
 <div class="px-4 py-5 my-5 text-center">
     <p class="h4"> Indicaste que tu peso es de {{encuesta.peso}} kg. y consumes un total de agua de
-    {{encuesta.total_vasos}} ml </p>
+    {{encuesta.total_vasos}} ml. </p>
     <p class="lead mb-4">Con esta información, a continuación te mostramos los cocientes de riesgo dados los contaminantes
     presentes en la fuente de abastecimiento</p>
 
@@ -164,6 +157,17 @@
         </div>
     </div>  
 </div>
+{% if encuesta.cuidador %}
+<div class="divider"></div>
+<div class="container px-5 py-5 my-5 text-center">
+  <p class="h4">A cuidadores de infancias</p>
+  <p class="lead">Las niñas y niños tienen un riesgo más elevado de sufrir los efectos en salud por la 
+  exposición a contaminantes presentes en el agua, por lo que se debe tener mayor cuidado 
+  al ofrecerles bebidas libres de estos elementos. </p>
+  <p class="lead">Al prepararles sus alimentos con agua segura y ofreciéndoles una alimentación balanceada 
+  y rica en alimentos sin procesar como frutas y verduras, estamos cuidando su futuro. </p>
+</div>
+{% endif %}
 
 {% endblock content %}
 
@@ -172,7 +176,7 @@
     const contams = [...document.querySelectorAll('#contaminantes > div >div >div:nth-child(2)')].map(({ id }) => id);
     const pozo = {{ pozo|safe }}
     document.getElementById("mun").innerHTML = pozo["municipio"]
-    document.getElementById("est").innerHTML = pozo["estado:>"]
+    document.getElementById("est").innerHTML = pozo["estado"]
     contams.forEach(c => {
       document.getElementById(c).style.background = pozo[c+"_color"]
       document.getElementById(c).setAttribute("title", pozo[c+"_descripcion"]);

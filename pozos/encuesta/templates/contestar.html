@@ -87,14 +87,6 @@
             height: 400px;
         }
 
-        .b-example-divider {
-            height: 3rem;
-            background-color: rgba(139, 206, 172, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .125em 1.5em rgba(48, 118, 83, .3), inset 0 .125em .5em rgba(48, 118, 83, .3);
-        }
-
         .invalid-feedback {
             display: inline-block;
             font-size: 1.25em;
@@ -117,7 +109,7 @@
     </div>
   </div>
 
-  <div class="b-example-divider"></div>
+  <div class="divider"></div>
   
     <div class="container" style="max-width:600px; padding:0">
         <div class="py-5">
@@ -127,7 +119,7 @@
                         <div class="py-5 text-center">
                             <p class="lead">Haz click en la posición deseada en el mapa o utiliza el botón para
                             identificar tu ubicación</p>
-                            <button type="button" id="btn-ubicar"  class="btn btn-info">Identificar mi ubicación</button>
+                            <button type="button" id="btn-ubicar"  class="btn btn-app">Identificar mi ubicación</button>
                         </div>
                         
                         {% leaflet_map "main"%}
@@ -183,7 +175,7 @@
                                 {{ form.captcha.errors }}
                             </div>
 
-                            <input type="submit" class="btn btn-secondary" value="Enviar" id="submit-btn" disabled="true">
+                            <input type="submit" class="btn btn-app" value="Enviar" id="submit-btn" disabled="true">
                         </div>
                     </form>
             </div>
