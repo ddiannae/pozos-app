@@ -54,6 +54,6 @@ class Encuesta(models.Model):
 
     @property
     def total_vasos(self):
-        return self.vasos * 250
+        return (self.vasos * 250)/1000
 
 
