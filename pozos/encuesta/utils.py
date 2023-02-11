@@ -27,6 +27,17 @@ class RiesgoStat:
         d_exp = (self.pozo[conc] * self.encuesta.total_vasos)/self.encuesta.peso
         return round(d_exp/conc_ref, 4)
 
+    def __get_riesgo_cat(self, prop):
+        if prop is None:
+            return None
+
+        if prop <= 1:
+            return "bajo"
+        elif prop > 1 and prop <= 3:
+            return "medio"
+        else:
+            return "alto"
+
     @property
     def riesgo_cd(self):
         return self.__get_riesgo("cd_total", self.CD_REF)
@@ -54,3 +65,31 @@ class RiesgoStat:
     @property
     def riesgo_fl(self):
         return self.__get_riesgo("fluor_total", self.FLUOR_REF)
+
+    @property
+    def riesgo_cd_cat(self):
+        return self.__get_riesgo_cat(self.riesgo_cd)
+
+    @property
+    def riesgo_cr_cat(self):
+        return self.__get_riesgo_cat(self.riesgo_cr)
+
+    @property
+    def riesgo_hg_cat(self):
+        return self.__get_riesgo_cat(self.riesgo_hg)
+
+    @property
+    def riesgo_mn_cat(self):
+        return self.__get_riesgo_cat(self.riesgo_mn)
+
+    @property
+    def riesgo_as_der_cat(self):
+        return self.__get_riesgo_cat(self.riesgo_as_der)
+
+    @property
+    def riesgo_as_ca_cat(self):
+        return self.__get_riesgo_cat(self.riesgo_as_ca)
+
+    @property
+    def riesgo_fl_cat(self):
+        return self.__get_riesgo_cat(self.riesgo_fl)
