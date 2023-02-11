@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os,sys
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -88,9 +88,14 @@ DATABASES = {
     'default': env.db() 
 }
 
-RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY') 
-RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY') 
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+# Google keys for testing
+if 'test' in sys.argv:
+    SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+    RECAPTCHA_PUBLIC_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' 
+    RECAPTCHA_PRIVATE_KEY = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'
+else:
+    RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY') 
+    RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY') 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
