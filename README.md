@@ -38,10 +38,12 @@ Donde:
   - $FE$: es un factor de exposición, con valor de 1
   
 Las dosis de referencia utilizadas en la aplicación son las siguientes:
-  - Cadmio: $5e-4$ mg/kg al día
-  - Cromo: 0.003
-  - Fluor: 0.06 
-  - Manganeso: 0.14
-  - Mercurio: 0.0003
+  - Arsénico, efectos dérmicos: 0.0003 mg/kg al día
+  - Arsénico, riesgo cancerígeno: 1.5 mg/kg al día
+  - Cadmio: 0.0005 mg/kg al día, sin efectos cancerígenos
+  - Cromo: 0.003 mg/kg al día
+  - Fluor: 0.06 mg/kg al día, sin efecto cancerígeno, fluorosis dental
+  - Manganeso: 0.14 mg/kg al día, con afectaciones al sistema nervioso
+  - Mercurio: 0.0003 mg/kg al día, con afectaciones al sistema nervioso
 
 
