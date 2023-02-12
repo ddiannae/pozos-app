@@ -30,11 +30,11 @@ class RiesgoStatTest(TestCase):
 
     def _get_cat(self, prop):
         if prop <= 1:
-            return "bajo"
+            return "Sin Riesgo"
         elif prop > 1 and prop <= 3:
-            return "medio"
+            return "Riesgo Medio"
         else:
-            return "alto"
+            return "Riesgo Alto"
 
     def test_riesgo_cd_is_None_when_cd_total_is_None(self):
         self.pozo_data['cd_total'] = None

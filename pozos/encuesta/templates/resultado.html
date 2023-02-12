@@ -117,43 +117,50 @@
     <div class="col-lg-6 mx-auto">
         <div class="container" id="contaminantes">
           <div class="row">
-            <div class="col-sm ">
-              <div class="col nombre my-2 lead">Arsénico Cancerígeno</div>
-              <p class="h4">{{stats.riesgo_as_ca|default_if_none:"--" }}</p>
-            </div>
-            <div class="col-sm ">
-              <div class="col nombre my-2 lead">Arsénico Efectos Dérmicos</div>
-              <p class="h4">{{stats.riesgo_as_der|default_if_none:"--"}}</p> 
-            </div>
             <div class="col-sm">
-              <div class="col my-2 nombre lead">Cadmio</div>
-              <p class="h4">{{stats.riesgo_cd|default_if_none:"--"}}</p>
+              <div class="col nombre my-2"><p class="h5">Arsénico Cancerígeno</p></div>
+              <p class="lead" style="color:{{stats.riesgo_as_ca_color}}">{{stats.riesgo_as_ca|default_if_none:"--" }}<br/>
+              {{stats.riesgo_as_ca_cat|default_if_none:"--" }}</p>
+            </div>
+            <div class="col-sm ">
+              <div class="col nombre my-2"><p class="h5">Arsénico Efectos Dérmicos</p></div>
+              <p class="lead" style="color:{{stats.riesgo_as_der_color}}">{{stats.riesgo_as_der|default_if_none:"--"}}<br/>
+              {{stats.riesgo_as_der_cat|default_if_none:"--" }}</p> 
             </div>
           </div>
           <div class="row">
             <div class="col-sm">
-              <div class="col my-2 nombre lead">Cromo</div>
-              <p class="h4">{{stats.riesgo_cr|default_if_none:"--"}}</p> 
+              <div class="col my-2 nombre"><p class="h5">Cadmio</p></div>
+              <p class="lead" style="color:{{stats.riesgo_cd_color}}">{{stats.riesgo_cd|default_if_none:"--"}}<br/>
+              {{stats.riesgo_cd_cat|default_if_none:"--" }}</p>
             </div>
             <div class="col-sm">
-              <div class="col my-2 nombre lead">Cadmio</div>
-              <p class="h4">{{stats.riesgo_cd|default_if_none:"--"}}</p>
+              <div class="col my-2 nombre"><p class="h5">Cromo</p></div>
+              <p class="lead" style="color:{{stats.riesgo_cr_color}}">{{stats.riesgo_cr|default_if_none:"--"}}<br/>
+              {{stats.riesgo_cr_cat|default_if_none:"--" }}</p> 
             </div>
             <div class="col-sm">
-              <div class="col my-2 nombre lead">Fluoruros</div>
-              <p class="h4">{{stats.riesgo_fl|default_if_none:"--"}}</p> 
+              <div class="col my-2 nombre"><p class="h5">Fluoruros</p></div>
+              <p class="lead" style="color:{{stats.riesgo_fl_color}}">{{stats.riesgo_fl|default_if_none:"--"}}<br/>
+              {{stats.riesgo_fl_cat|default_if_none:"--" }}</p> 
             </div>
           </div>
           <div class="row">
             <div class="col-sm">
-              <div class="col my-2 nombre lead">Mercurio</div>
-              <p class="h4">{{stats.riesgo_hg|default_if_none:"--"}}</p> 
+              <div class="col my-2 nombre"><p class="h5">Mercurio</p></div>
+              <p class="lead" style="color:{{stats.riesgo_hg_color}}">{{stats.riesgo_hg|default_if_none:"--"}}<br/>
+              {{stats.riesgo_hg_cat|default_if_none:"--" }}</p> 
             </div>
             <div class="col-sm">
-              <div class="col my-2 nombre lead">Manganeso</div>
-              <p class="h4">{{stats.riesgo_mn|default_if_none:"--"}}</p>
+              <div class="col my-2 nombre"><p class="h5">Manganeso</p></div>
+              <p class="lead" style="color:{{stats.riesgo_mn_color}}">{{stats.riesgo_mn|default_if_none:"--"}}<br/>
+              {{stats.riesgo_mn_cat|default_if_none:"--" }}</p>
             </div>
-          </div>
+          </div>    
+        </div>
+        <div class="container px-4 pt-4">
+          <p><span style="color:#FF5733">Riesgo Medio</span> - <span style="color:#C70039">Riesgo Alto</span>: Existe un riesgo a la salud si usted utiliza el agua directamente de la llave para beber o para preparar sus alimentos.
+            Considere que, si la usa para cocinar o la hierve, el riesgo aumenta. Utilice otra fuente de agua para consumo humano, como agua purificada o tratada con métodos que remuevan este contaminante a concentraciones seguras.</p>   
         </div>
     </div>  
 </div>

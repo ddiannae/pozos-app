@@ -27,16 +27,29 @@ class RiesgoStat:
         d_exp = (self.pozo[conc] * self.encuesta.total_vasos)/self.encuesta.peso
         return round(d_exp/conc_ref, 4)
 
-    def __get_riesgo_cat(self, prop):
+    def __get_riesgo_color(self, prop):
+        # Rojo, naranja, blanco
+        COLORES = ["#C70039", "#FF5733", "#000000"]
         if prop is None:
-            return None
+            return COLORES[-1] 
 
         if prop <= 1:
-            return "bajo"
+            return COLORES[-1] 
         elif prop > 1 and prop <= 3:
-            return "medio"
+            return COLORES[1] 
         else:
-            return "alto"
+            return COLORES[0] 
+
+    def __get_riesgo_cat(self, prop):
+        if prop is None:
+            return None 
+
+        if prop <= 1:
+            return "Sin Riesgo"
+        elif prop > 1 and prop <= 3:
+            return "Riesgo Medio"
+        else:
+            return "Riesgo Alto"
 
     @property
     def riesgo_cd(self):
@@ -93,3 +106,31 @@ class RiesgoStat:
     @property
     def riesgo_fl_cat(self):
         return self.__get_riesgo_cat(self.riesgo_fl)
+
+    @property
+    def riesgo_cd_color(self):
+        return self.__get_riesgo_color(self.riesgo_cd)
+
+    @property
+    def riesgo_cr_color(self):
+        return self.__get_riesgo_color(self.riesgo_cr)
+
+    @property
+    def riesgo_hg_color(self):
+        return self.__get_riesgo_color(self.riesgo_hg)
+
+    @property
+    def riesgo_mn_color(self):
+        return self.__get_riesgo_color(self.riesgo_mn)
+
+    @property
+    def riesgo_as_der_color(self):
+        return self.__get_riesgo_color(self.riesgo_as_der)
+
+    @property
+    def riesgo_as_ca_color(self):
+        return self.__get_riesgo_color(self.riesgo_as_ca)
+
+    @property
+    def riesgo_fl_color(self):
+        return self.__get_riesgo_color(self.riesgo_fl)
