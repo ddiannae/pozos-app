@@ -27,4 +27,21 @@ Para realizar futuros análisis sobre los hábitos de consumo de agua en la pobl
 
 ## Cálculo del cociente de riesgo
 
+Para obtener el cociente de riesgo se divide la dosis de exposición del usuario entre la dosis de referencia. Para el cálculo de la dosis de exposición se utiliza la siguiente fórmula: 
+
+$$ Dosis_{exposición} = {concentración * ingesta * FE \over peso } $$
+
+Donde:
+  - $concentración$: se refiere a la concentración del contaminante para el cual se calcula la dosis
+  - $ingesta$: es la cantidad de agua consumida al día por el usuario, tomando en cuenta que un vaso equivale a 250ml
+  - $peso$: se refiere al peso corporal del usuario
+  - $FE$: es un factor de exposición, con valor de 1
+  
+Las dosis de referencia utilizadas en la aplicación son las siguientes:
+  - Cadmio: $5e-4$ mg/kg al día
+  - Cromo: 0.003
+  - Fluor: 0.06 
+  - Manganeso: 0.14
+  - Mercurio: 0.0003
+
 
